@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <form action="search.php" method="GET">
-	<input type="text" name="query" placeholder="Search..." />
+	<input type="text" name="query" placeholder="Name" />
 	<p></p>
         <input type="submit" value="Submit" />
     </form>
