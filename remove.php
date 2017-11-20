@@ -37,19 +37,22 @@
             //Table headers     
             echo "<table> <tr> <th>Name</th> <th>Location</th><th>ID</th></tr>";
 
-            while($results = mysqli_fetch_array($raw_results)){
+            $results = mysqli_fetch_array($raw_results);
                 //Adds results to table
                 echo "<tr> <td>".$results['name']."</td> <td>"
                         .$results['location']."</td>" . "<td>".$results['id']."</td></tr>";
-            }
+            
             //Closes table
             echo "</table>"; 
         }
 
-	$raw_results = mysqli_query($sqldb, "DELETE FROM items WHERE id='".$id."'") 
+	$raw_results2 = mysqli_query($sqldb, "DELETE FROM items WHERE id='".$id."'") 
 		or die(mysqli_error($sqldb));
 	
 	echo "Item: ". $id . " Deleted";
+	echo "<a href=\"add.php?name=" . $results['name'] 
+		. "&location=" . $results['location'] 
+		. "\" class=\"button\">Undo</a>";
     }
     else{ // if query length is less than minimum
         echo "Minimum length is ".$min_length;
