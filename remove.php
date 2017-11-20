@@ -1,9 +1,7 @@
-<?php
-    include("header.php");
-?>
+<?php include("header.php");?>
  
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <title>Search results</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,7 +16,10 @@
 </html>
 
 <?php
+    //Gets ID of entry to be removed
     $id = $_GET['id']; 
+
+    //Minimum ID length
     $min_length = 1;
      
     if(strlen($id) >= $min_length){ // if query length is more or equal minimum length then
@@ -29,9 +30,10 @@
         $id = mysqli_real_escape_string($sqldb, $id);
         // makes sure nobody uses SQL injection
          
-        $raw_results = mysqli_query($sqldb, "DELETE FROM items
-            WHERE id='".$id."'") or die(mysqli_error($sqldb));
-        echo "Item Deleted";
+        $raw_results = mysqli_query($sqldb, "DELETE FROM items WHERE id='".$id."'") 
+		or die(mysqli_error($sqldb));
+	
+	echo "Item: ". $id . " Deleted";
     }
     else{ // if query length is less than minimum
         echo "Minimum length is ".$min_length;
