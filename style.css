@@ -60,6 +60,9 @@ table {
     border-collapse: collapse;
     width: 100%;
 }
+.table2{
+    width: 30%;
+}
 
 th, td {
     text-align: left;

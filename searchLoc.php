@@ -35,12 +35,11 @@
              
         if(mysqli_num_rows($raw_results) > 0){ // if one or more rows are returned do following
 	    //Header: Location being searched	
-	    echo "<table> <tr> <th>Name</th> <th>Location</th><th>ID</th></tr>";
+	    echo "<table class=\"table table2\"> <tr> <th>Name</th> <th>ID</th></tr>";
 
             while($results = mysqli_fetch_array($raw_results)){
                 //Adds results to table
-                echo "<tr> <td>".$results['name']."</td> <td>"
-                        .$results['location']."</td>" . "<td>".$results['id']."</td></tr>";
+                echo "<tr> <td>".$results['name']."</td> <td>".$results['id']."</td></tr>";
             }
             //Closes table
             echo "</table>"; 

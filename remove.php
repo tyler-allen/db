@@ -30,7 +30,23 @@
         $id = mysqli_real_escape_string($sqldb, $id);
         // makes sure nobody uses SQL injection
          
-        $raw_results = mysqli_query($sqldb, "DELETE FROM items WHERE id='".$id."'") 
+        $raw_results = mysqli_query($sqldb, "SELECT * FROM items WHERE id='".$id."'") 
+		or die(mysqli_error($sqldb));
+
+	if(mysqli_num_rows($raw_results) > 0){ // if one or more rows are returned do following
+            //Table headers     
+            echo "<table> <tr> <th>Name</th> <th>Location</th><th>ID</th></tr>";
+
+            while($results = mysqli_fetch_array($raw_results)){
+                //Adds results to table
+                echo "<tr> <td>".$results['name']."</td> <td>"
+                        .$results['location']."</td>" . "<td>".$results['id']."</td></tr>";
+            }
+            //Closes table
+            echo "</table>"; 
+        }
+
+	$raw_results = mysqli_query($sqldb, "DELETE FROM items WHERE id='".$id."'") 
 		or die(mysqli_error($sqldb));
 	
 	echo "Item: ". $id . " Deleted";
