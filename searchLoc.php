@@ -35,11 +35,15 @@
              
         if(mysqli_num_rows($raw_results) > 0){ // if one or more rows are returned do following
 	    //Header: Location being searched	
-	    echo "<h1>" . $query . "</h1>";
-	    
-	    while($results = mysqli_fetch_array($raw_results)){
-                echo "<p>".$results['name']."</p>";
+	    echo "<table> <tr> <th>Name</th> <th>Location</th><th>ID</th></tr>";
+
+            while($results = mysqli_fetch_array($raw_results)){
+                //Adds results to table
+                echo "<tr> <td>".$results['name']."</td> <td>"
+                        .$results['location']."</td>" . "<td>".$results['id']."</td></tr>";
             }
+            //Closes table
+            echo "</table>"; 
              
         }
         else{ // if there is no matching rows do following

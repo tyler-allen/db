@@ -9,7 +9,7 @@
     <form action="remove.php" method="GET">
 	<input type="text" name="id" placeholder="ID To Remove" />
 	<p></p>
-        <input type="submit" value="Add" />
+        <input type="submit" value="Submit" />
 	<p></p>
     </form>
 </body>
