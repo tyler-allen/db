@@ -3,15 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Search results</title>
+    <title>Add Entry</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css"/>
-    <form action="add.php" method="GET">
+    <form action="add.php" method="POST">
 	<input type="text" name="name" placeholder="Name" />
 	<p></p>
 	<input type="text" name="location" placeholder="Location" />
 	<p></p>
-        <input type="submit" value="Submit" />
+        <input type="submit" name = "submit" value="Submit" />
+	<p></p>
+        <input type="submit" name = "submitLoc" value="Submit Location" />
 	<p></p>
     </form>
 </body>
@@ -19,30 +21,37 @@
 
 <?php
     //Get name and location from address bar
-    $name = $_GET['name']; 
-    $location = $_GET['location']; 
+    $name = $_POST['name']; 
+    $location = $_POST['location']; 
      
     //Minimum name length
     $min_length = 1;
-     
+
     if(strlen($name) >= $min_length){ // if query length is more or equal minimum length then
-         
-        $query = htmlspecialchars($name); 
-        $query = htmlspecialchars($location); 
-        // changes characters used in html to their equivalents, for example: < to &gt;
-         
-        $query = mysqli_real_escape_string($sqldb, $name);
-        $query = mysqli_real_escape_string($sqldb, $location);
-        // makes sure nobody uses SQL injection
-         
-        $raw_results = mysqli_query($sqldb, "INSERT INTO items (name, location) VALUES
-            ( '" . $name . "', '" . $location . "' )") or die(mysqli_error($sqldb));
+	$query = htmlspecialchars($name); 
+	$query = htmlspecialchars($location); 
+	// changes characters used in html to their equivalents, for example: < to &gt;
+	 
+	$query = mysqli_real_escape_string($sqldb, $name);
+	$query = mysqli_real_escape_string($sqldb, $location);
+	// makes sure nobody uses SQL injection
+    }
+
+    if(isset($_POST['submit'])){ 
+	$raw_results = mysqli_query($sqldb, "INSERT INTO items (name, location) VALUES
+	    ( '" . $name . "', '" . $location . "' )") or die(mysqli_error($sqldb));
 	
-	echo "Added entry: " . $name . " At: " . $location;
-         
-   }
-    else{ // if query length is less than minimum
-        echo "Minimum length is ".$min_length;
+	echo "<table> <tr> <th>Name</th> <th>Location</th></tr>";
+        echo "<tr> <td>".$name."</td> <td>".$location."</td></tr>";
+        echo "</table>"; 
+    }
+    elseif(isset($_POST['submitLoc'])){
+	$raw_results = mysqli_query($sqldb, "INSERT INTO locations (name, location) VALUES
+	    ( '" . $name . "', '" . $location . "' )") or die(mysqli_error($sqldb));
+	
+	echo "<table> <tr> <th>Name</th> <th>Location</th></tr>";
+        echo "<tr> <td>".$name."</td> <td>".$location."</td></tr>";
+        echo "</table>"; 
     }
 ?>
 </body>

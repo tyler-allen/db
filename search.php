@@ -6,17 +6,19 @@
     <title>Search</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css"/>
-    <form action="search.php" method="GET">
+    <form action="search.php" method="POST">
 	<input type="text" name="query" placeholder="Name" />
 	<p></p>
-        <input type="submit" value="Submit" />
+        <input type="submit" name = "submit" value="Submit" />
+	<p></p>
+        <input type="submit" name = "submitLoc" value="Submit Location" />
+        <p></p>
     </form>
 </body>
 </html>
    
 <?php
-    $query = $_GET['query']; 
-    //echo "<h1>Search Results for: " . $query . "</h1>";
+    $query = $_POST['query']; 
 
     //Minimum name length
     $min_length = 1;
@@ -28,29 +30,31 @@
          
         $query = mysqli_real_escape_string($sqldb, $query);
         // makes sure nobody uses SQL injection
-         
+    }
+    if(isset($_POST['submit'])){
         $raw_results = mysqli_query($sqldb, "SELECT * FROM items
             WHERE `name` LIKE '%".$query."%'") or die(mysqli_error($sqldb));
-             
-        if(mysqli_num_rows($raw_results) > 0){ // if one or more rows are returned do following
+    }     
+    elseif(isset($_POST['submitLoc'])){
+        $raw_results = mysqli_query($sqldb, "SELECT * FROM locations
+            WHERE `name` LIKE '%".$query."%'") or die(mysqli_error($sqldb));
+    }
+    if(isset($_POST['submit']) || isset($_POST['submitLoc'])){
+	if(mysqli_num_rows($raw_results) > 0){ // if one or more rows are returned do following
 	    //Table headers	
 	    echo "<table> <tr> <th>Name</th> <th>Location</th><th>ID</th></tr>";
 
-            while($results = mysqli_fetch_array($raw_results)){
-                //Adds results to table
+	    while($results = mysqli_fetch_array($raw_results)){
+		//Adds results to table
 		echo "<tr> <td>".$results['name']."</td> <td>"
-			.$results['location']."</td>" . "<td>".$results['id']."</td></tr>";
-            }
+		.$results['location']."</td>" . "<td>".$results['id']."</td></tr>";
+	    }
 	    //Closes table
 	    echo "</table>"; 
 	}
-        else{ // if there is no matching rows do following
-            echo "No results";
-        }
-         
-    }
-    else{ // if query length is less than minimum
-        echo "Minimum length is ".$min_length;
+	else{ // if there is no matching rows do following
+	    echo "No results";
+	}
     }
 ?>
 </body>

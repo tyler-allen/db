@@ -6,17 +6,17 @@
     <title>Search results</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css"/>
-    <form action="searchLoc.php" method="GET">
+    <form action="searchLoc.php" method="POST">
 	<input type="text" name="query" placeholder="Search..." />
 	<p></p>
-        <input type="submit" value="Submit" />
+        <input type="submit" name="submit"value="Submit" />
 	<p></p>
     </form>
 </body>
 </html>
 
 <?php
-    $query = $_GET['query']; 
+    $query = $_POST['query']; 
     // gets value sent over search form
      
     //$min_length = 1;
@@ -29,7 +29,8 @@
          
         $query = mysqli_real_escape_string($sqldb, $query);
         // makes sure nobody uses SQL injection
-         
+    }
+    if(isset($_POST['submit'])){
         $raw_results = mysqli_query($sqldb, "SELECT * FROM items
             WHERE `location` LIKE '".$query."'") or die(mysqli_error($sqldb));
              
@@ -49,9 +50,6 @@
             echo "No results";
         }
          
-    }
-    else{ // if query length is less than minimum
-        echo "Minimum length is ".$min_length;
     }
 ?>
 </body>
