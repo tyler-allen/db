@@ -28,7 +28,7 @@
         $query = htmlspecialchars($query); 
         // changes characters used in html to their equivalents, for example: < to &gt;
 	
-	$query = mysqli_real_escape_string($sqldb, $_POST['query']);
+	$query = mysqli_real_escape_string($sqldb, $query);
         // makes sure nobody uses SQL injection
     }
     if(isset($_POST['submit'])){
