@@ -6,9 +6,8 @@ Files:
     navBar.html		--Navigation bar used by all pages
     header.php		--Header that includes navBar.html and MYSQL connection
 
-    add.php		--Site to add entries to the database
-    addLoc.php		--Site to add locations to the database
-    move.php		--Site to change an entry's location
-    remove.php		--Site to remove an entry based on ID
-    search.php		--Site to list entries based on name
+    add.php		--Site to add entries or locations to the database
+    move.php		--Site to change an entry or location's location
+    remove.php		--Site to remove an entry or location based on ID
+    search.php		--Site which offers name and location lookup
     searchLoc.php	--Site to list entries based on location
