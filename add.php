@@ -28,12 +28,12 @@
     $min_length = 1;
 
     if(strlen($name) >= $min_length){ // if query length is more or equal minimum length then
-	$query = htmlspecialchars($name); 
-	$query = htmlspecialchars($location); 
+	$name = htmlspecialchars($name); 
+	$location = htmlspecialchars($location); 
 	// changes characters used in html to their equivalents, for example: < to &gt;
 	 
-	$query = mysqli_real_escape_string($sqldb, $name);
-	$query = mysqli_real_escape_string($sqldb, $location);
+	$name = mysqli_real_escape_string($sqldb, $name);
+	$location = mysqli_real_escape_string($sqldb, $location);
 	// makes sure nobody uses SQL injection
     }
 

@@ -6,7 +6,7 @@
     //SQL Connection
     $sqldb = mysqli_connect("localhost", "pub", "qelc27c", "items") 
 	or die("Error connecting to database: ".mysql_error());
-
+    mysqli_set_charset($sqldb,"utf8");
     //Setup NavBar
     include("navBar.html");
     echo "<p></p>";
